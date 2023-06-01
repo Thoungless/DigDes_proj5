@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Любимая Москва</title>
+  <style>
+
+  	body {
+            background-color: yellow;
+            font-family: Arial, sans-serif;
+        }
+
+  	img{
+  		border: 2px solid #000;
+  		width: 300px;
+  		height: 300px;
+
+  	}
+    p{
+        margin-bottom: 10px;
+    }
+    select{
+        margin-bottom: 10px;
+    }
+    form{
+    	margin-bottom: 100px;
+    }
+    footer {
+        background-color: black;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        padding-top: 20px;
+        padding-right: 20px;
+        text-align: right; 
+        width: 100%;
+        height: 50px;   
+        font-size: 19px;
+        font-weight: bold;
+        color: yellow;  
+    }
+  	.container{
+  		margin: 30px;
+  		
+
+  		display: flex;
+  		justify-content: center;
+  	}
+  	.column{
+  		padding: 20px;
+  		width: 350px;
+
+  	}
+  	.Tittle{
+  		display: flex;
+  		justify-content: center;
+  	}
+  	.catImage{
+  		width: 300px;
+  		height: 300px;
+  	}
+
+  </style>
+    <script>
+
+        function getBitcoinPrice() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd', true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var bitcoinPrice = response.bitcoin.usd;
+                    var bitcoinPriceElement = document.getElementById('bitcoinPrice');
+                    bitcoinPriceElement.innerText = 'Курс биткоина: $' + bitcoinPrice;
+                }
+                else {
+                    console.log('Произошла ошибка:', xhr.status);
+                }
+            };
+            xhr.onerror = function () {
+                console.log('Произошла ошибка при выполнении запроса');
+            };
+            xhr.send();
+        }
+
+			
+
+    </script>
+</head>
+<body>
+	<div class="Tittle">
+		<h2>Любимая Москва</h2>
+	</div>	
+	<div class="container">	
+	    <div class="column">
+			<img src="image/красная-площадб.JPG" alt="Красная площадь">
+			<img src="image/вднх.JPG" alt="ВДНХ">
+
+		</div>
+		<div class="column">
+			<h2>Описание</h2>
+
+            <p>Москва – столица Российской Федерации, самый крупный по численности населения город страны и один из десяти крупнейших городов мира. Она является центром Московской области, но сама в её состав не входит. Территориально Москва разделена на 12 административных округов, 125 районов и 21 поселение.
+            Москва – один из самых привлекательных в туристическом плане городов мира, поражающий гостей своей историей, неимоверным количеством всевозможных архитектурных достопримечательностей, музеев, театров, галерей, которые не сможет перечислить ни один искусствовед. В то же время Москва – город глубоких контрастов. Здесь можно увидеть очередь за «Бэнтли» и нищих в переходах метро, деревянные избы в тупиках Китай-города и стеклянные небоскрёбы Москва-Сити, ощутить деревенскую тишину переулков Замоскворечья и шум мегаполиса в деловых кварталах.</p>
+
+			<h2>Полезные ссылки</h2>
+			<ul>	
+			  <li><a href="https://moydom.moscow/gorod/" target="_blank">Сайт Москвы</a></li>
+              <li><a href="https://ru.wikipedia.org/wiki/Москва" target="_blank">Википедия</a></li>
+            </ul>
+	    </div>
+	    <div class="column">
+	    	<h2>Опрос</h2>
+        <form action="http://localhost/load/place" method="POST">
+            <label for="place">Любимое место Москвы:</label><br>
+            <select id="place" name="place">
+                <option value="arbat">Арбат</option>
+                <option value="china-city">Китай-город</option>
+                <option value="dedSquare">Красная площадб</option>
+                <option value="VDNH">ВДНХ</option>
+            </select><br>
+            <input type="submit" value="Отправить"> 
+        </form>
+        <form action="http://localhost/load/radio" method="POST">
+            <label>Какая картинка красивее:</label><br>
+            <input type="radio" id="painting1" name="painting" value="painting1">
+            <label for="painting1">Картина 1</label><br>
+            <input type="radio" id="painting2" name="painting" value="painting2">
+            <label for="painting2">Картина 2</label><br>
+            <input type="submit" value="Отправить"> 
+        </form>
+			<button onclick="getBitcoinPrice()">Получить курс биткоина</button>
+    		<div id="bitcoinPrice"></div>
+	    </div>
+	</div>
+	<footer>
+          Copyright Галкин Иван 2023
+    </footer>
+</body>
+</html>
